@@ -1,3 +1,25 @@
+import random
+
+
+def generate_random_array_size(length):
+    random_array = []
+
+    for i in range(length):
+        number = random.randrange(10)  # generates numbers between 0 and 2
+
+        random_array.append(number)
+
+    sort_array = sorted(random_array)
+
+    index1 = random.randint(0, length)
+
+    array1 = sort_array[:index1]
+    array2 = sort_array[index1:]
+    join_array = array2 + array1
+
+    return join_array
+
+
 def split_list_pivot(array):
     left = 0
     right = len(array) - 1
@@ -34,7 +56,7 @@ def binary_search(array, target):
 
 def split_list_search(array, target):
     pivot = split_list_pivot(array)
-
+    right = len(array) - 1
     # todo: optimise search by searching left or right array only
     # split original array into sub-arrays
     left_array = array[:pivot]
@@ -43,6 +65,12 @@ def split_list_search(array, target):
     # perform binary search on each sub-array
     left_search = binary_search(left_array, target)
     right_search = binary_search(right_array, target)
+
+    # searching left or right array only
+    if array[right] > target and target < array[pivot - 1]:
+        left_search
+    if array[pivot] > target and target < array[right]:
+        right_search
 
     # return index of the target in the original array
     if (left_search == -1) and (right_search == -1):
@@ -53,7 +81,12 @@ def split_list_search(array, target):
         return right_search + pivot
 
 
-A = [23, 100, 103, 103, 105, 3, 5, 8, 10, 11, 11, 13, 20]
-B = [23, 100, 103, 103, 105]
+A = generate_random_array_size(5)
+print(A)
 
-print(split_list_search(A, 103))
+for i in range(10):
+    num = random.randrange(10)
+    print(num)
+    print("index is", split_list_search(A, num))
+
+
